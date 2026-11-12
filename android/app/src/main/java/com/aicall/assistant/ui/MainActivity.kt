@@ -59,7 +59,8 @@ class MainActivity : ComponentActivity() {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     val navController = rememberNavController()
                     val notificationCallId = intent.getLongExtra("call_id", 0L)
-                    val dialRequest = intent.action == Intent.ACTION_DIAL && intent.data?.scheme == "tel"
+                    val dialRequest = intent.action == Intent.ACTION_DIAL &&
+                        (intent.data == null || intent.data?.scheme == "tel")
                     val dialNumber = if (dialRequest) intent.data?.schemeSpecificPart.orEmpty() else ""
                     val tabs = listOf(
                         AppTab("calls", "Calls", R.drawable.ic_nav_call),
